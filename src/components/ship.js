@@ -1,26 +1,21 @@
-export interface ship {
-  name: string;
-  length: number;
-  health: boolean[];
-  hit: (t: number) => boolean;
-}
-
-export default (ship: string, shipLength: number): ship => {
+export default (ship, shipLength) => {
   const name = ship;
   const length = shipLength;
   const health = Array(length).fill(false);
 
+  let sunk = false;
   const isSunk = () => {
     if (health.indexOf(false) === -1) {
+      sunk = true;
       return `You sunk my ${name}!`;
     }
   };
 
-  const hit = (t: number) => {
+  const hit = (t) => {
     health[t] = true;
     isSunk();
     return true;
   };
 
-  return { name, length, health, hit };
+  return { name, length, health, hit, sunk };
 };

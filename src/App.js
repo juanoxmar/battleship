@@ -13,7 +13,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default function App(): JSX.Element {
+export default function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
