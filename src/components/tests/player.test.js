@@ -2,9 +2,10 @@ import Player from '../player';
 import { output } from './sampleData';
 
 describe('Player Test', () => {
-  //Player(output, output);
+  const computer = Player(output);
+  computer.board.receiveAttack(0, 0);
 
-  xit('My turn', () => {
-    expect().toStrictEqual([true, false]);
+  it('My turn', () => {
+    expect().toStrictEqual(true);
   });
 });
