@@ -59,3 +59,13 @@ export const initialValues = {
   Patrolboatcol: '',
   Patrolboatdir: '',
 };
+
+export const bk = {};
+export const keys = (r, c) =>
+  'ABCDEFGHIJ'.split('')[r] + Array.from(Array(10), (_, i) => i + 1)[c];
+
+for (let j = 0; j < 10; j++) {
+  for (let i = 0; i < 10; i++) {
+    bk[keys(i, j)] = [i, j];
+  }
+}

@@ -26,7 +26,7 @@
 }
 
 .eSquare {
-  border: 1px solid violet;
+  border: 1px solid mediumorchid;
   width: 60px;
   height: 60px;
   line-height: 60px;
@@ -47,15 +47,11 @@
   color: white;
 }
 
-.menu {
-}
-
 .boards {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  align-items: center;
   justify-content: space-around;
 }
 
