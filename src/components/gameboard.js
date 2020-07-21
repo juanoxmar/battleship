@@ -58,32 +58,32 @@ export default (data) => {
     enemyBoard[r][c] = response;
   };
 
-  let fleetDown = false;
-
   // board receives an attack
   const receiveAttack = (r, c) => {
-    if (board[r][c] === null) {
+    const sq = board[r][c];
+    if (sq === null) {
       return false;
     } else {
-      fleet[board[r][c][0]].hit(board[r][c][1]);
-      if (fleetSunkCheck()) {
-        //Something to trigger & display the game is over
-        fleetDown = true;
-        return 'Game Over!';
-      } else {
-        //Something to display a hit
-        return true;
-      }
+      fleet[sq[0]].hit(sq[1]);
+      //Something to display a hit
+      return true;
     }
   };
-  const fleetSunkCheck = () =>
-    fleet.Carrier.sunk &&
-    fleet.Battleship.sunk &&
-    fleet.Destroyer.sunk &&
-    fleet.Submarine.sunk &&
-    fleet.Patrolboat.sunk === -1
+
+  const fleetDown = () =>
+    fleet.Carrier.isSunk() &&
+    fleet.Battleship.isSunk() &&
+    fleet.Destroyer.isSunk() &&
+    fleet.Submarine.isSunk() &&
+    fleet.Patrolboat.isSunk()
       ? true
       : false;
 
-  return { receiveAttack, fleetDown, trackAttack };
+  return {
+    receiveAttack,
+    fleetDown,
+    trackAttack,
+    enemyBoard,
+    board,
+  };
 };

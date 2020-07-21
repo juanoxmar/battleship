@@ -4,6 +4,8 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import React from 'react';
 import './App.css';
 import TemporaryDrawer from './components/drawer';
+import Board from './components/board';
+import { eventFire } from './components/player';
 
 const theme = createMuiTheme({
   palette: {
@@ -12,36 +14,6 @@ const theme = createMuiTheme({
     secondary: { main: '#00c853' },
   },
 });
-
-const Board = (props) => {
-  const alpha = 'ABCDEFGHIJ'.split('');
-  const num = Array.from(Array(10), (_, i) => i + 1);
-  const keys = (r, c) => alpha[r] + num[c];
-  const row = [];
-
-  for (let j = 0; j < 10; j++) {
-    const column = [];
-    for (let i = 0; i < 10; i++) {
-      column.push(
-        <div className={props.csquare} key={keys(i, j)}>
-          {keys(i, j)}
-        </div>
-      );
-    }
-    row.push(
-      <div className='column' id={num[j].toString()} key={num[j]}>
-        {column}
-      </div>
-    );
-  }
-
-  return (
-    <div className={props.cname}>
-      {row}
-      <span>{props.title}</span>
-    </div>
-  );
-};
 
 export default function App() {
   return (
@@ -52,8 +24,23 @@ export default function App() {
           <TemporaryDrawer />
         </div>
         <div className='boards'>
-          <Board cname='myBoard' csquare='mySquare' title='My Board' />
-          <Board cname='enemyBoard' csquare='eSquare' title='Enemy Board' />
+          <Board
+            cname='myBoard'
+            csquare='mySquare'
+            title='My Board'
+            ids='m'
+            fire='mfire'
+            dis={true}
+          />
+          <Board
+            cname='enemyBoard'
+            csquare='eSquare'
+            title='Enemy Board'
+            ids='e'
+            event={eventFire}
+            fire='fire'
+            eSunk='eSunk'
+          />
         </div>
       </div>
     </MuiThemeProvider>

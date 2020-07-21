@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import FormGroup from './fieldComponents';
 import { initialValues, validationSchema } from './validation';
 import './form.css';
-import _, { values } from 'lodash';
+import _ from 'lodash';
 
 export default () => {
   const fleet = [
@@ -121,7 +121,6 @@ export default () => {
       console.log(`Collision with Submarine & Patrolboat! Move Ships`);
       return;
     } else {
-      console.log(values);
     }
   };
 
@@ -146,7 +145,6 @@ export default () => {
             >
               Submit
             </Button>
-            <pre>{JSON.stringify(values, null, 2)}</pre>
           </Form>
         )}
       </Formik>
