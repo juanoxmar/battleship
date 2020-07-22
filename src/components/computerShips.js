@@ -132,7 +132,4 @@ do {
       }
     }
   }
-  console.log(arr);
 } while (loop);
-
-console.log(output);

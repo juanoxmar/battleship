@@ -59,7 +59,6 @@ export default class Player extends React.Component {
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {
             setSubmitting(true);
-            console.log(output);
             this.setState({ isSubmitted: true });
             setSubmitting(false);
           }}
