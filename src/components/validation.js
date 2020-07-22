@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import _ from 'lodash';
 
 const rowVal = (ship, length) =>
   Yup.number()
@@ -24,39 +25,195 @@ const colVal = (ship, length) =>
         ),
     });
 
+const dirCar = () =>
+  Yup.number()
+    .required('Required')
+    .test('collide Car/BS', 'Collision with Battleship!', function (value) {
+      return !inter(
+        shipSquares(this.parent.Carrierrow, this.parent.Carriercol, value, 5),
+        shipSquares(
+          this.parent.Battleshiprow,
+          this.parent.Battleshipcol,
+          this.parent.Battleshipdir,
+          4
+        )
+      );
+    })
+    .test('collide Car/Des', 'Collision with Destroyer!', function (value) {
+      return !inter(
+        shipSquares(this.parent.Carrierrow, this.parent.Carriercol, value, 5),
+        shipSquares(
+          this.parent.Destroyerrow,
+          this.parent.Destroyercol,
+          this.parent.Destroyerdir,
+          3
+        )
+      );
+    })
+    .test('collide Car/Sub', 'Collision with Submarine!', function (value) {
+      return !inter(
+        shipSquares(this.parent.Carrierrow, this.parent.Carriercol, value, 5),
+        shipSquares(
+          this.parent.Submarinerow,
+          this.parent.Submarinecol,
+          this.parent.Submarinedir,
+          3
+        )
+      );
+    })
+    .test('collide Car/Pat', 'Collision with Patrolboat!', function (value) {
+      return !inter(
+        shipSquares(this.parent.Carrierrow, this.parent.Carriercol, value, 5),
+        shipSquares(
+          this.parent.Patrolboatrow,
+          this.parent.Patrolboatcol,
+          this.parent.Patrolboatdir,
+          2
+        )
+      );
+    });
+
+const dirBattle = () =>
+  Yup.number()
+    .required('Required')
+    .test('collide BS/Des', 'Collision with Destroyer!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Battleshiprow,
+          this.parent.Battleshipcol,
+          value,
+          4
+        ),
+        shipSquares(
+          this.parent.Destroyerrow,
+          this.parent.Destroyercol,
+          this.parent.Destroyerdir,
+          3
+        )
+      );
+    })
+    .test('collide BS/Sub', 'Collision with Submarine!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Battleshiprow,
+          this.parent.Battleshipcol,
+          value,
+          4
+        ),
+        shipSquares(
+          this.parent.Submarinerow,
+          this.parent.Submarinecol,
+          this.parent.Submarinedir,
+          3
+        )
+      );
+    })
+    .test('collide BS/Pat', 'Collision with Patrolboat!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Battleshiprow,
+          this.parent.Battleshipcol,
+          value,
+          4
+        ),
+        shipSquares(
+          this.parent.Patrolboatrow,
+          this.parent.Patrolboatcol,
+          this.parent.Patrolboatdir,
+          2
+        )
+      );
+    });
+
+const dirDes = () =>
+  Yup.number()
+    .required('Required')
+    .test('collide Des/Sub', 'Collision with Submarine!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Destroyerrow,
+          this.parent.Destroyercol,
+          value,
+          3
+        ),
+        shipSquares(
+          this.parent.Submarinerow,
+          this.parent.Submarinecol,
+          this.parent.Submarinedir,
+          3
+        )
+      );
+    })
+    .test('collide Des/Sub', 'Collision with Submarine!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Destroyerrow,
+          this.parent.Destroyercol,
+          value,
+          3
+        ),
+        shipSquares(
+          this.parent.Patrolboatrow,
+          this.parent.Patrolboatcol,
+          this.parent.Patrolboatdir,
+          2
+        )
+      );
+    });
+
+const dirSub = () =>
+  Yup.number()
+    .required('Required')
+    .test('collide Sub/Pat', 'Collision with Patrolboat!', function (value) {
+      return !inter(
+        shipSquares(
+          this.parent.Submarinerow,
+          this.parent.Submarinecol,
+          value,
+          3
+        ),
+        shipSquares(
+          this.parent.Patrolboatrow,
+          this.parent.Patrolboatcol,
+          this.parent.Patrolboatdir,
+          2
+        )
+      );
+    });
+
 export const validationSchema = Yup.object({
   Carrierrow: rowVal('Carrier', 5),
   Carriercol: colVal('Carrier', 5),
-  Carrierdir: Yup.number().required('Required'),
+  Carrierdir: dirCar(),
   Battleshiprow: rowVal('Battleship', 4),
   Battleshipcol: colVal('Battleship', 4),
-  Battleshipdir: Yup.number().required('Required'),
+  Battleshipdir: dirBattle(),
   Destroyerrow: rowVal('Destroyer', 3),
   Destroyercol: colVal('Destroyer', 3),
-  Destroyerdir: Yup.number().required('Required'),
+  Destroyerdir: dirDes(),
   Submarinerow: rowVal('Submarine', 3),
   Submarinecol: colVal('Submarine', 3),
-  Submarinedir: Yup.number().required('Required'),
+  Submarinedir: dirSub(),
   Patrolboatrow: rowVal('Patrolboat', 2),
   Patrolboatcol: colVal('Patrolboat', 2),
   Patrolboatdir: Yup.number().required('Required'),
 });
 
 export const initialValues = {
-  Carrierrow: '',
-  Carriercol: '',
-  Carrierdir: '',
-  Battleshiprow: '',
-  Battleshipcol: '',
-  Battleshipdir: '',
-  Destroyerrow: '',
-  Destroyercol: '',
-  Destroyerdir: '',
-  Submarinerow: '',
-  Submarinecol: '',
-  Submarinedir: '',
-  Patrolboatrow: '',
-  Patrolboatcol: '',
+  Carrierrow: 0,
+  Carriercol: 0,
+  Carrierdir: 0,
+  Battleshiprow: 1,
+  Battleshipcol: 0,
+  Battleshipdir: 0,
+  Destroyerrow: 2,
+  Destroyercol: 0,
+  Destroyerdir: 0,
+  Submarinerow: 3,
+  Submarinecol: 0,
+  Submarinedir: 0,
+  Patrolboatrow: 4,
+  Patrolboatcol: 0,
   Patrolboatdir: '',
 };
 
@@ -69,3 +226,15 @@ for (let j = 0; j < 10; j++) {
     bk[keys(i, j)] = [i, j];
   }
 }
+
+const inter = (arr1, arr2) => _.intersection(arr1, arr2).length > 0;
+const shipSquares = (r, c, direction, l) => {
+  const arr = [];
+  for (let i = 0; i < l; i++) {
+    let j = 0,
+      k = 0;
+    direction === 1 ? (j = i) : (k = i);
+    arr.push(keys(r + j, c + k));
+  }
+  return arr;
+};

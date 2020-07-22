@@ -1,7 +1,6 @@
 import React from 'react';
 import Ship from './ship';
 import { bk, keys } from './validation';
-import { output } from './tests/sampleData';
 
 export default class Gameboard extends React.Component {
   constructor(props) {
@@ -21,6 +20,7 @@ export default class Gameboard extends React.Component {
       sunkText: '',
       computer: 0,
       dis: false,
+      input: null,
     };
   }
 
@@ -131,7 +131,7 @@ export default class Gameboard extends React.Component {
   };
 
   componentDidMount() {
-    this.shipInput(output);
+    this.shipInput(this.props.input);
     this.setState({ computer: this.props.computer, dis: this.props.dis });
   }
 

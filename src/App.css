@@ -14,12 +14,6 @@
   padding: 5px;
 }
 
-.myBoard {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-
 .row {
   display: flex;
   flex-direction: row;
@@ -57,4 +51,15 @@
 
 span {
   align-self: center;
+}
+
+.reset {
+  padding-top: 10px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }

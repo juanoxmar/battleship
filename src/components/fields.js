@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useField } from 'formik';
 import { MenuItem, TextField } from '@material-ui/core';
 import './form.css';

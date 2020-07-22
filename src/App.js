@@ -3,7 +3,7 @@ import { purple } from '@material-ui/core/colors';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import React from 'react';
 import './App.css';
-import Gameboard from './components/gameboard';
+import ShipForm from './components/form';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,16 +18,8 @@ export default function App() {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <div className='container'>
-        <div className='menu'>{/*<TemporaryDrawer />*/}</div>
-        <div className='boards'>
-          <Gameboard
-            btnC='mySquare'
-            dis={true}
-            who='My Board'
-            ids='m'
-            computer={1}
-          />
-          <Gameboard btnC='eSquare' who='Enemy Board' ids='e' />
+        <div className='menu'>
+          <ShipForm />
         </div>
       </div>
     </MuiThemeProvider>
