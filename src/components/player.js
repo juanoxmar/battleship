@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { initialValues, validationSchema } from './validation';
 import './form.css';
 import Gameboard from './gameboard';
-import { output } from './computerShips';
+import output from './computerShips';
 import FormGroup from './fields';
 
 export default class Player extends React.Component {
@@ -16,6 +16,7 @@ export default class Player extends React.Component {
         .fill(null)
         .map(() => Array(10).fill(null)),
       compCheck: false,
+      location: '',
     };
   }
 
@@ -40,8 +41,6 @@ export default class Player extends React.Component {
     this.winCheck();
   };
 
-  resetClick = () => this.setState({ isSubmitted: false, compCheck: false });
-
   render() {
     const fleet = [
       'Carrier',
@@ -59,7 +58,7 @@ export default class Player extends React.Component {
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {
             setSubmitting(true);
-            this.setState({ isSubmitted: true });
+            this.setState({ isSubmitted: true, location: output() });
             setSubmitting(false);
           }}
           validateOnChange={true}
@@ -84,17 +83,6 @@ export default class Player extends React.Component {
                   </Button>
                 </Form>
               )}
-              <div className='reset'>
-                {this.state.isSubmitted && (
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={this.resetClick}
-                  >
-                    RESET GAME
-                  </Button>
-                )}
-              </div>
               <br />
               {this.state.isSubmitted && (
                 <div className='boards'>
@@ -108,7 +96,7 @@ export default class Player extends React.Component {
                   />
                   <Gameboard
                     who='Enemy Board'
-                    input={output}
+                    input={this.state.location}
                     dis={this.state.compCheck}
                     btnC='eSquare'
                     onClick={this.onClickHandle}

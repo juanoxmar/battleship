@@ -44,7 +44,7 @@ export default class Gameboard extends React.Component {
     placement(
       data.Destroyerrow,
       data.Destroyercol,
-      data.Destoryerdir,
+      data.Destroyerdir,
       ship.Destroyer
     );
     placement(
