@@ -227,8 +227,8 @@ for (let j = 0; j < 10; j++) {
   }
 }
 
-const inter = (arr1, arr2) => _.intersection(arr1, arr2).length > 0;
-const shipSquares = (r, c, direction, l) => {
+export const inter = (arr1, arr2) => _.intersection(arr1, arr2).length > 0;
+export const shipSquares = (r, c, direction, l) => {
   const arr = [];
   for (let i = 0; i < l; i++) {
     let j = 0,

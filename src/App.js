@@ -3,7 +3,7 @@ import { purple } from '@material-ui/core/colors';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import React from 'react';
 import './App.css';
-import ShipForm from './components/form';
+import Player from './components/player';
 
 const theme = createMuiTheme({
   palette: {
@@ -19,7 +19,7 @@ export default function App() {
       <CssBaseline />
       <div className='container'>
         <div className='menu'>
-          <ShipForm />
+          <Player />
         </div>
       </div>
     </MuiThemeProvider>

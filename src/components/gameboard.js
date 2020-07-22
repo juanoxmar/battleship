@@ -19,7 +19,6 @@ export default class Gameboard extends React.Component {
       hitText: '',
       sunkText: '',
       computer: 0,
-      dis: false,
       input: null,
     };
   }
@@ -100,7 +99,6 @@ export default class Gameboard extends React.Component {
             myBoard: board,
             hitText: 'Hit!',
             sunkText: text,
-            dis: true,
           });
         } else {
           const text = `You sunk my ${fleet[board[r][c][0]].name}!`;
@@ -132,7 +130,7 @@ export default class Gameboard extends React.Component {
 
   componentDidMount() {
     this.shipInput(this.props.input);
-    this.setState({ computer: this.props.computer, dis: this.props.dis });
+    this.setState({ computer: this.props.computer });
   }
 
   render() {
@@ -142,15 +140,17 @@ export default class Gameboard extends React.Component {
       const row = [];
       for (let i = 0; i < 10; i++) {
         row.push(
-          <button
-            className={this.props.btnC}
-            disabled={this.state.dis}
-            onClick={this.handleClick}
-            id={this.props.ids + key(j, i)}
-            key={key(j, i)}
-          >
-            {this.buttonText(j, i)}
-          </button>
+          <div onClick={this.props.onClick} key={key(j, i)}>
+            <button
+              className={this.props.btnC}
+              disabled={this.props.dis}
+              onClick={this.handleClick}
+              id={this.props.ids + key(j, i)}
+              key={key(j, i)}
+            >
+              {this.buttonText(j, i)}
+            </button>
+          </div>
         );
       }
       column.push(
