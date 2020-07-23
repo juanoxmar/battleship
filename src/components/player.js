@@ -69,6 +69,7 @@ export default class Player extends React.Component {
               {!this.state.isSubmitted && (
                 <Form className='forms'>
                   <p>Place your ships</p>
+
                   {fleet.map((x) => (
                     <FormGroup name={x} key={x} />
                   ))}
@@ -81,6 +82,11 @@ export default class Player extends React.Component {
                   >
                     Submit
                   </Button>
+                  <p>Length of Ships</p>
+                  <span>
+                    Carrier: 5, Battleship: 4, Destroyer: 3, Submarine: 3,
+                    Patrolboat: 2
+                  </span>
                 </Form>
               )}
               <br />
